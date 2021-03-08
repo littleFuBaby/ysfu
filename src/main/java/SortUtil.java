@@ -5,14 +5,41 @@ public class SortUtil {
         //insertionSort(array);
         //selectionSort(array);
         //bubbleSort(array);
-        quickSort(array, 0, array.length - 1);
+        //quickSort(array, 0, array.length - 1);
+        mergeSort(array, 0, array.length - 1);
         for (int x : array) {
             System.out.println(x);
         }
     }
 
-    public static void mergeSort(){
+    /**
+     * Merge Sort
+     *
+     * @param array
+     * @param begin
+     * @param end
+     */
+    public static void mergeSort(int[] array, int begin, int end) {
+        if (array == null || array.length == 0) return;
+        if (begin >= end) return;
+        int mid = (begin + end) >> 1;
+        mergeSort(array, begin, mid);
+        mergeSort(array, mid + 1, end);
+        merge(array, begin, mid, end);
+    }
 
+    private static void merge(int[] array, int begin, int mid, int end) {
+        int[] temp = new int[end - begin + 1];
+        int i = begin, j = mid + 1, k = 0;
+        while (i <= mid && j <= end) {
+            temp[k++] = array[i] <= array[j] ? array[i++] : array[j++];
+        }
+        while (i <= mid) temp[k++] = array[i++];
+        while (j <= end) temp[k++] = array[j++];
+
+        for (int p = 0; p < temp.length; p++) {
+            array[begin + p] = temp[p];
+        }
     }
 
     /**
