@@ -4,11 +4,11 @@ public class SortUtil {
 
     public static void main(String[] args) {
         int[] array = new int[]{4, 2, 6, 1, 7};
-        //insertionSort(array);
+        insertionSort(array);
         //selectionSort(array);
         //bubbleSort(array);
         //quickSort(array, 0, array.length - 1);
-        mergeSort(array, 0, array.length - 1);
+        //mergeSort(array, 0, array.length - 1);
         for (int x : array) {
             System.out.println(x);
         }
@@ -34,13 +34,12 @@ public class SortUtil {
         int[] temp = new int[end - begin + 1];
         int i = begin, j = mid + 1, k = 0;
         while (i <= mid && j <= end) {
-            temp[k++] = array[i] <= array[j] ? array[i++] : array[j++];
+            temp[k++] = array[i] < array[j] ? array[i++] : array[j++];
         }
         while (i <= mid) temp[k++] = array[i++];
         while (j <= end) temp[k++] = array[j++];
-
-        for (int p = 0; p < temp.length; p++) {
-            array[begin + p] = temp[p];
+        for (int l = 0; l < temp.length; l++) {
+            array[begin + l] = temp[l];
         }
     }
 
@@ -52,7 +51,6 @@ public class SortUtil {
     public static void quickSort(int[] array, int begin, int end) {
         if (array == null || array.length == 0) return;
         if (begin >= end) return;
-        // find pivot
         int pivot = partition(array, begin, end);
         quickSort(array, begin, pivot - 1);
         quickSort(array, pivot + 1, end);
@@ -64,10 +62,7 @@ public class SortUtil {
      * @return
      */
     private static int partition(int[] array, int begin, int end) {
-        // pivot index
-        int pivot = end;
-        // number which is less than pivot
-        int counter = begin;
+        int pivot = end, counter = begin;
         for (int i = begin; i < end; i++) {
             if (array[i] < array[pivot]) {
                 int temp = array[counter];
@@ -88,14 +83,13 @@ public class SortUtil {
      * @param array
      */
     public static void bubbleSort(int[] array) {
-        if (array == null || array.length == 0)
-            return;
+        if (array == null || array.length == 0) return;
         for (int i = 0; i < array.length - 1; i++) {
-            for (int j = 0; j < array.length - 1 - i; j++) {
+            for (int j = 0; j < array.length - i - 1; j++) {
                 if (array[j + 1] < array[j]) {
-                    int temp = array[j + 1];
-                    array[j + 1] = array[j];
-                    array[j] = temp;
+                    int temp = array[j];
+                    array[j] = array[j + 1];
+                    array[j + 1] = temp;
                 }
             }
         }
@@ -107,8 +101,7 @@ public class SortUtil {
      * @param array
      */
     public static void insertionSort(int[] array) {
-        if (array == null || array.length == 0)
-            return;
+        if (array == null || array.length == 0) return;
         for (int i = 1; i < array.length; i++) {
             int prev = i - 1;
             int current = array[i];
@@ -126,12 +119,11 @@ public class SortUtil {
      * @param array
      */
     public static void selectionSort(int[] array) {
-        if (array == null || array.length == 0)
-            return;
+        if (array == null || array.length == 0) return;
         for (int i = 0; i < array.length - 1; i++) {
             int minIndex = i;
             for (int j = i + 1; j < array.length; j++) {
-                if (array[j] < array[minIndex]) {
+                if (array[minIndex] > array[j]) {
                     minIndex = j;
                 }
             }
