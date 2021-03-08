@@ -4,8 +4,8 @@ public class SortUtil {
 
     public static void main(String[] args) {
         int[] array = new int[]{4, 2, 6, 1, 7};
-        insertionSort(array);
-        //selectionSort(array);
+        //insertionSort(array);
+        selectionSort(array);
         //bubbleSort(array);
         //quickSort(array, 0, array.length - 1);
         //mergeSort(array, 0, array.length - 1);
